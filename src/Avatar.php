@@ -192,6 +192,6 @@ class Avatar
     {
         $url = 'https://ui-avatars.com/api/?name=' . urlencode($this->identifier);
 
-        return $url
+        return $url;
     }
 }
