@@ -7,16 +7,32 @@ use Elijahcruz\Avatar\Exception\IdentifierTypeNotSupportedException;
 
 class Avatar
 {
+    /**
+     * This is the identifier. It is mixed incase we end up adding a generator that uses integers
+     * @var mixed
+     */
     private mixed $identifier = '';
 
+    /**
+     * This is the generator we are using. Defaults to Gravatar.
+     * @var string
+     */
     private string $generator = 'gravatar';
 
+    /**
+     * This is the options array.
+     * @var array
+     */
     private array $options = [];
 
     /**
-     * Generates a url for your avatar
+     * Allows you to create Avatar URLs for your users.
+     *
+     * @param mixed $identifier
+     * @param string $generator
+     * @param array $options
      */
-    public function __construct(mixed $identifier, string $generator = 'gravatar', array $options = [])
+    public function __construct(mixed $identifier, string $generator = 'gravatar', array $options = []) : void
     {
         if( is_string( $identifier ) )
         {
@@ -35,6 +51,11 @@ class Avatar
         $this->options = $options;
     }
 
+    /**
+     * Get's the URL for the Avatar
+     *
+     * @return string
+     */
     public function getUrl() : string
     {
         switch ($this->generator)
@@ -53,6 +74,11 @@ class Avatar
         return $url;
     }
 
+    /**
+     * Switches the Generator to Gravatar
+     *
+     * @return self
+     */
     public function gravatar() : self
     {
         $this->generator = 'gravatar';
@@ -60,6 +86,11 @@ class Avatar
         return $this;
     }
 
+    /**
+     * Switches the Generator to UI Avatars
+     *
+     * @return self
+     */
     public function uiavatars() : self
     {
         $this->generator = 'uiavatars';
@@ -67,6 +98,13 @@ class Avatar
         return $this;
     }
 
+    /**
+     * Addes or overwrites an option.
+     *
+     * @param string $key
+     * @param mixed $value
+     * @return self
+     */
     public function option(string $key, mixed $value) : self
     {
         $this->options[$key] = $value;
@@ -74,6 +112,12 @@ class Avatar
         return $this;
     }
 
+    /**
+     * Adds or overwrites multiple options.
+     *
+     * @param array $options
+     * @return self
+     */
     public function options(array $options) : self
     {
         foreach ( $options as $key => $value )
@@ -84,6 +128,12 @@ class Avatar
         return $this;
     }
 
+    /**
+     * Resets the options array. If an array is added as it's parameter, it will be the new options array.
+     *
+     * @param array $options
+     * @return self
+     */
     public function resetOptions(array $options = []) : self
     {
         $this->options = $options;
@@ -91,11 +141,22 @@ class Avatar
         return $this;
     }
 
+    /**
+     * Get's the options array.
+     *
+     * @return array
+     */
     public function getOptions() : array
     {
         return $this->options;
     }
 
+    /**
+     * Changes the identifier.
+     *
+     * @param string $identifier
+     * @return self
+     */
     public function newIdentifier(string $identifier) : self
     {
         $this->identifier = $identifier;
@@ -103,6 +164,11 @@ class Avatar
         return $this;
     }
 
+    /**
+     * This function generates the Gravatar URL
+     *
+     * @return string
+     */
     private function usegravatar() : string
     {
         $url = "https://www.gravatar.com/avatar/" . md5($this->identifier);
@@ -184,6 +250,11 @@ class Avatar
         return $url;
     }
 
+    /**
+     * This function generates the UI Avatars URL
+     *
+     * @return string
+     */
     private function useuiavatars() : string
     {
         $url = 'https://ui-avatars.com/api/?name=' . urlencode($this->identifier);
