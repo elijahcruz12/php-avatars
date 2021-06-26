@@ -64,9 +64,15 @@ class Avatar
         return $this;
     }
 
-    public function option(string $key, string $value) : self
+    public function option(string $key, mixed $value) : self
     {
-        array_push($this->options, [ $key => $value ] );
+        if(array_key_exists($key, $this->options)){
+            $this->options[$key] = $value;
+        }
+        else
+        {
+            array_push($this->options, [ $key => $value ] );
+        }
 
         return $this;
     }
@@ -75,8 +81,28 @@ class Avatar
     {
         foreach ( $options as $key => $value )
         {
-            array_push($this->options, [ $key => $value ] );
+            if(array_key_exists($key, $this->options)){
+                $this->options[$key] = $value;
+            }
+            else
+            {
+                array_push($this->options, [ $key => $value ] );
+            }
         }
+
+        return $this;
+    }
+
+    public function resetOptions(array $options = []) : self
+    {
+        $this->options = $options;
+
+        return $this;
+    }
+
+    public function newIdentifier(string $identifier) : self
+    {
+        $this->identifier = $identifier;
 
         return $this;
     }
