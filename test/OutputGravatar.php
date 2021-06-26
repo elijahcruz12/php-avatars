@@ -6,4 +6,5 @@ use Elijahcruz\Avatar\Avatar;
 
 $avatar = new Avatar('myemailaddress@example.com' , $type = 'gravatar', ['default' => 'mp', 'force_default' => false, 'rating' => 'pg', 'extension' => '.jpg']);
 
-echo $avatar->getUrl();
+// Change default last second
+echo $avatar->option('default', 'identicon')->getUrl();

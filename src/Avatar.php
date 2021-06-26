@@ -7,11 +7,11 @@ use Elijahcruz\Avatar\Exception\IdentifierTypeNotSupportedException;
 
 class Avatar
 {
-    public mixed $identifier;
+    private mixed $identifier = '';
 
-    public string $generator;
+    private string $generator = 'gravatar';
 
-    public array $options;
+    private array $options = [];
 
     /**
      * Generates a url for your avatar
@@ -42,6 +42,9 @@ class Avatar
             case "gravatar":
                 $url = $this->usegravatar();
                 break;
+            case "uiavatars":
+                $url = $this->useuiavatars();
+                break;
             default:
                 throw new GeneratorTypeNotFound('Generator: ' . $this->generator . ' is not a valid option.');
                 break;
@@ -66,28 +69,16 @@ class Avatar
 
     public function option(string $key, mixed $value) : self
     {
-        if(array_key_exists($key, $this->options)){
-            $this->options[$key] = $value;
-        }
-        else
-        {
-            array_push($this->options, [ $key => $value ] );
-        }
+        $this->options[$key] = $value;
 
         return $this;
     }
 
-    public function options(string $options) : self
+    public function options(array $options) : self
     {
         foreach ( $options as $key => $value )
         {
-            if(array_key_exists($key, $this->options)){
-                $this->options[$key] = $value;
-            }
-            else
-            {
-                array_push($this->options, [ $key => $value ] );
-            }
+            $this->options[$key] = $value;
         }
 
         return $this;
@@ -98,6 +89,11 @@ class Avatar
         $this->options = $options;
 
         return $this;
+    }
+
+    public function getOptions() : array
+    {
+        return $this->options;
     }
 
     public function newIdentifier(string $identifier) : self
@@ -192,6 +188,62 @@ class Avatar
     {
         $url = 'https://ui-avatars.com/api/?name=' . urlencode($this->identifier);
 
+        if( array_key_exists( 'background', $this->options ) )
+        {
+
+            $url .='&background=' . $this->options['background'];
+
+        }
+
+        if( array_key_exists( 'color', $this->options ) )
+        {
+
+            $url .= '&color=' . $this->options['color'];
+
+        }
+
+        if( array_key_exists( 'size', $this->options ) )
+        {
+
+            $url = $url . '&size=' . $this->options['size'];
+
+        }
+
+        if( array_key_exists( 'font_size', $this->options ) )
+        {
+
+            $url = $url . '&font-size=' . $this->options['font_size'];
+
+        }
+
+        if( array_key_exists( 'length', $this->options ) )
+        {
+
+            $url = $url . '&length=' . $this->options['length'];
+
+        }
+
+        if( array_key_exists( 'rounded', $this->options ) )
+        {
+
+            $url = $url . '&rounded=' . $this->options['rounded'];
+
+        }
+
+        if( array_key_exists( 'bold', $this->options ) )
+        {
+
+            $url = $url . '&bold=' . $this->options['bold'];
+
+        }
+
+        if( array_key_exists( 'format', $this->options ) )
+        {
+
+            $url = $url . '&format=' . $this->options['format'];
+
+        }
+    
         return $url;
     }
 }
