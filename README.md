@@ -96,12 +96,32 @@ Meanwhile there are so many options in terms of providers out there, we're worki
 
 ## Gravatar
 
+Identifier Type: email
+
 Options:
 
 | Option          | Type   | Accepts                                                        |
 |-----------------|--------|----------------------------------------------------------------|
-| 'default'       | string | mp, 404, identicon, monsterid, wavatar, retro, robohash, blank |
-| 'force_default' | bool   | true, false                                                    |
+|  default        | string | mp, 404, identicon, monsterid, wavatar, retro, robohash, blank |
+|  force_default  | bool   | true, false                                                    |
 | rating          | string | g, pg, r, x                                                    |
 | size            | int    | Any integer                                                    |
 | extension       | string | .jpg                                                           |
+
+## UI Avatar
+
+Identifier Type: Name
+
+Options:
+
+| Option     | Type   | Accepts     | Default                                                          |
+|------------|--------|-------------|------------------------------------------------------------------|
+| size       | int    | 16-512      | 64                                                               |
+| font_size  | int    | 0.1-1       | 0.5                                                              |
+| length     | int    | Any int     | 2                                                                |
+| rounded    | bool   | true, false | false                                                            |
+| bold       | bool   | true, false | false                                                            |
+| background | string | any hex     | f0e9e9                                                           |
+| color      | string | any hex     | 8b5d5d                                                           |
+| uppercase  | bool   | true, false | true                                                             |
+| format     | string | svg, png    | Depends on Accepts Header, if SVG is in header, is SVG, else PNG |
