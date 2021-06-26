@@ -16,7 +16,7 @@ class Avatar
     /**
      * Generates a url for your avatar
      */
-    public function __construct(mixed $identifier, string $type = 'gravatar', array $options = [])
+    public function __construct(mixed $identifier, string $generator = 'gravatar', array $options = [])
     {
         if( is_string( $identifier ) )
         {
@@ -30,7 +30,7 @@ class Avatar
             throw new IdentifierTypeNotSupportedException('The first parameter in Elijahcruz\\Avatar\\Avatar only accepts the types string and int, ' . gettype($identifier) . ' was given');
         }
 
-        $this->generator = $type;
+        $this->generator = $generator;
 
         $this->options = $options;
     }
@@ -40,7 +40,7 @@ class Avatar
         switch ($this->generator)
         {
             case "gravatar":
-                $url = $this->gravatar();
+                $url = $this->usegravatar();
                 break;
             default:
                 throw new GeneratorTypeNotFound('Generator: ' . $this->generator . ' is not a valid option.');
@@ -50,7 +50,38 @@ class Avatar
         return $url;
     }
 
-    public function gravatar() : string
+    public function gravatar() : self
+    {
+        $this->generator = 'gravatar';
+
+        return $this;
+    }
+
+    public function uiavatars() : self
+    {
+        $this->generator = 'uiavatars';
+        
+        return $this;
+    }
+
+    public function option(string $key, string $value) : self
+    {
+        array_push($this->options, [ $key => $value ] );
+
+        return $this;
+    }
+
+    public function options(string $options) : self
+    {
+        foreach ( $options as $key => $value )
+        {
+            array_push($this->options, [ $key => $value ] );
+        }
+
+        return $this;
+    }
+
+    private function usegravatar() : string
     {
         $url = "https://www.gravatar.com/avatar/" . md5($this->identifier);
 
@@ -131,7 +162,7 @@ class Avatar
         return $url;
     }
 
-    public function uiavatars() : string
+    private function useuiavatars() : string
     {
         $url = 'https://ui-avatars.com/api/?name=' . urlencode($this->identifier);
 
