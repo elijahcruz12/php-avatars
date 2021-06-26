@@ -32,7 +32,7 @@ class Avatar
      * @param string $generator
      * @param array $options
      */
-    public function __construct(mixed $identifier, string $generator = 'gravatar', array $options = []) : void
+    public function __construct(mixed $identifier, string $generator = 'gravatar', array $options = [])
     {
         if( is_string( $identifier ) )
         {
