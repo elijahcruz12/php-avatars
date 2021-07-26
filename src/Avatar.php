@@ -32,7 +32,7 @@ class Avatar
      * @param string $generator
      * @param array $options
      */
-    public function __construct(mixed $identifier, string $generator = 'gravatar', array $options = [])
+    public function __construct(mixed $identifier = 'test', string $generator = 'gravatar', array $options = [])
     {
         if( is_string( $identifier ) )
         {
@@ -72,6 +72,32 @@ class Avatar
         }
 
         return $url;
+    }
+
+    /**
+     * Creates a new instance of Avatar. Is recommended to use this in Laravel.
+     *
+     * @param mixed $identifier
+     * @param string $generator
+     * @param array $options
+     * @return void
+     */
+    public function new(mixed $identifier = '', string $generator = 'gravatar', array $options = []) {
+        if( is_string( $identifier ) )
+        {
+            $this->identifier = strtolower(trim($identifier));
+        }
+        elseif( is_integer( $identifier ) )
+        {
+            $this->identifier = $identifier;
+        }
+        else{
+            throw new IdentifierTypeNotSupportedException('The first parameter in Elijahcruz\\Avatar\\Avatar only accepts the types string and int, ' . gettype($identifier) . ' was given');
+        }
+
+        $this->generator = $generator;
+
+        $this->options = $options;
     }
 
     /**
