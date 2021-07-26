@@ -14,5 +14,17 @@
             "email": "ecwebservices@gmail.com"
         }
     ],
-    "require": {}
+    "require-dev": {
+        "orchestra/testbench": "^6.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Elijahcruz\\Avatar\\AvatarServiceProvider"
+            ],
+            "aliases": {
+                "Avatar": "Elijahcruz\\Avatar\\Facades\\Avatar"
+            }
+        }
+    }
 }
