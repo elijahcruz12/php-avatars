@@ -4,6 +4,7 @@ namespace Elijahcruz\Avatar;
 
 use Elijahcruz\Avatar\Exception\GeneratorTypeNotFound;
 use Elijahcruz\Avatar\Exception\IdentifierTypeNotSupportedException;
+use Illuminate\Foundation\Auth\User;
 
 class AvatarLaravel
 {
@@ -82,7 +83,7 @@ class AvatarLaravel
      * @param array $options
      * @return void
      */
-    public function create(mixed $identifier = '', string $generator = 'gravatar', array $options = []) {
+    public function create(mixed $identifier = '', string $generator = '', array $options = []) {
         if( is_string( $identifier ) )
         {
             $this->identifier = strtolower(trim($identifier));
@@ -95,7 +96,39 @@ class AvatarLaravel
             throw new IdentifierTypeNotSupportedException('The first parameter in Elijahcruz\\Avatar\\Avatar only accepts the types string and int, ' . gettype($identifier) . ' was given');
         }
 
-        $this->generator = $generator;
+        if($generator == ''){
+            $this->generator = config('avatar.default-generator', 'gravatar');
+        }
+        else{
+            $this->generator = $generator;
+        }
+
+
+        $this->options = $options;
+    }
+
+    public function CreateUsingUser(User $user, mixed $column = 'email', string $generator = '', array $options = []){
+        $identifier = $user->$column;
+
+        if( is_string( $identifier ) )
+        {
+            $this->identifier = strtolower(trim($identifier));
+        }
+        elseif( is_integer( $identifier ) )
+        {
+            $this->identifier = $identifier;
+        }
+        else{
+            throw new IdentifierTypeNotSupportedException('The first parameter in Elijahcruz\\Avatar\\Avatar only accepts the types string and int, ' . gettype($identifier) . ' was given');
+        }
+
+        if($generator == ''){
+            $this->generator = config('avatar.default-generator', 'gravatar');
+        }
+        else{
+            $this->generator = $generator;
+        }
+
 
         $this->options = $options;
     }
