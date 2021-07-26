@@ -82,7 +82,7 @@ class Avatar
      * @param array $options
      * @return void
      */
-    public function new(mixed $identifier = '', string $generator = 'gravatar', array $options = []) {
+    public function create(mixed $identifier = '', string $generator = 'gravatar', array $options = []) {
         if( is_string( $identifier ) )
         {
             $this->identifier = strtolower(trim($identifier));
