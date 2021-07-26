@@ -10,7 +10,7 @@ class AvatarServiceProvider extends ServiceProvider
     {
         $this->app->bind('avatar', function($app) {
             return new AvatarLaravel();
-        })
+        });
     }
 
     public function boot()
