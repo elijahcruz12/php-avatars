@@ -105,6 +105,8 @@ class AvatarLaravel
 
 
         $this->options = $options;
+
+        return $this;
     }
 
     public function CreateUsingUser(User $user, mixed $column = 'email', string $generator = '', array $options = []){
@@ -131,6 +133,8 @@ class AvatarLaravel
 
 
         $this->options = $options;
+
+        return $this;
     }
 
     /**
