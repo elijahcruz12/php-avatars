@@ -109,7 +109,7 @@ class AvatarLaravel
         return $this;
     }
 
-    public function CreateUsingUser(User $user, mixed $column = 'email', string $generator = '', array $options = []){
+    public function createUsingUser(User $user, mixed $column = 'email', string $generator = '', array $options = []){
         $identifier = $user->$column;
 
         if( is_string( $identifier ) )

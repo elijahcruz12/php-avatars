@@ -90,6 +90,38 @@ This is what makes PHP Avatars super simple, but VERY powerful.
 
 This is all is takes to easily manage your avatars for your users.
 
+## Laravel Usage
+
+The package now thankfully has Laravel support. You can now use a Facade that includes two amazing methods.
+
+````
+use Elijahcruz\Avatar\Facades\Avatar;
+
+Avatar::create('email', 'gravatar', ['size' => 80]);
+
+--- OR ---
+use App\Models\User;
+
+
+$user = User::find(1);
+Avatar::createUsingUser($user, 'name', 'uiavatar', ['size' => 80]);
+
+````
+
+With the facade, you can still chain the existing methods that the framework agnostic version contains.
+
+````
+Avatar::createUsingUser($user, 'email', 'gravatar')->option('size', 80)->getUrl();
+````
+
+This makes is very easy to use inside of Laravel.
+
+If you use UI Avatar more than gravatar, or want to change some other setting, you can always publish the config file:
+
+````
+php artisan vendor:publish --provider="Elijahcruz\Avatar\AvatarPackageServiceProvider" --tag="config"
+````
+
 # Currently Supported Proviers
 
 Meanwhile there are so many options in terms of providers out there, we're working on making as many as possible work with PHP Avatars, to give you the best possible package for this. Each provider's own options that they provide are included in PHP Avatars, to make things VERY simple.
