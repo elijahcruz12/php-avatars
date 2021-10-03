@@ -58,6 +58,16 @@ $avatar->uiavatars();
 
 This allows you to switch between avatar generators quickly and easily. But what if each one uses different options, or you wanted to generate the URL again, but with a different size, no problem. Any options that aren't defined in the generator your currently using are ignored. Any that are, can be overwritten.
 
+When using these, you can also add the new identifier with this.
+
+````
+// Using Gravatar
+$avatar->gravatar('johndoe@example.com');
+
+// Using UI Avatars
+$avatar->uiavatars('John Doe');
+````
+
 ````
 // Create an option then rewrite it
 $avatar->option('size', 200); // Size is 200

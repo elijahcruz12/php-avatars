@@ -105,9 +105,14 @@ class Avatar
      *
      * @return self
      */
-    public function gravatar() : self
+    public function gravatar(string $identifier = '') : self
     {
         $this->generator = 'gravatar';
+
+        if($identifier != '')
+        {
+            $this->identifier = $identifier;
+        }
 
         return $this;
     }
@@ -117,9 +122,14 @@ class Avatar
      *
      * @return self
      */
-    public function uiavatars() : self
+    public function uiavatars(string $identifier = '') : self
     {
         $this->generator = 'uiavatars';
+
+        if($identifier != '')
+        {
+            $this->identifier = $identifier;
+        }
         
         return $this;
     }
