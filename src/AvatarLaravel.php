@@ -81,9 +81,10 @@ class AvatarLaravel
      * @param mixed $identifier
      * @param string $generator
      * @param array $options
-     * @return void
+     * @return self
      */
-    public function create(mixed $identifier = '', string $generator = '', array $options = []) {
+    public function create(mixed $identifier = '', string $generator = '', array $options = []) : self
+    {
         if( is_string( $identifier ) )
         {
             $this->identifier = strtolower(trim($identifier));
