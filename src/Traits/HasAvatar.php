@@ -77,6 +77,9 @@ trait HasAvatar
      */
     public function setAvatarOptions(array $avatarOptions): void
     {
+        try{
+            $this->setAvatarInfo();
+        }
         $this->avatarOptions = $avatarOptions;
     }
 }
