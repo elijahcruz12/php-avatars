@@ -12,20 +12,5 @@ use Elijahcruz\Avatar\Exception\IdentifierTypeNotSupportedException;
  */
 trait HasAvatar
 {
-    protected string $avatarIdentifier;
-    protected string $avatarProvider;
-    protected array $avatarOptions;
 
-    /**
-     * Get the URL
-     *
-     * @return string
-     * @throws GeneratorTypeNotFound
-     * @throws IdentifierTypeNotSupportedException
-     */
-    protected function getAvatar(): string
-    {
-        $avatar = new AvatarLaravel($this->avatarIdentifier, $this->avatarProvider, $this->avatarOptions);
-        return $avatar->getUrl();
-    }
 }
