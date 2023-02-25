@@ -271,7 +271,7 @@ class Avatar
                 $firstOption = false;
             }
             else{
-                $url = $url . '&r=' . $this->options['size'];
+                $url = $url . '&s=' . $this->options['size'];
             }
 
         }
